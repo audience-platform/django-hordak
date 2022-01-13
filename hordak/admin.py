@@ -82,7 +82,7 @@ class TransactionAdmin(admin.ModelAdmin):
 
 @admin.register(models.Leg)
 class LegAdmin(admin.ModelAdmin):
-    list_display = ['id', 'uuid', 'transaction', 'account', 'amount', 'description']
+    list_display = ['uuid', 'transaction', 'account', 'amount', 'description']
     search_fields = (
         "account__name",
         "account__id",

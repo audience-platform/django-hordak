@@ -18,6 +18,7 @@ Additionally, there are models which related to the import of external bank stat
   create a transaction for the statement line.
 """
 
+
 import uuid
 
 try:
@@ -97,7 +98,12 @@ class Account(MPTTModel):
         ("EQ", "equity", "Equity"),  # Eg. Money from shares
         ("TR", "trading", "Currency Trading"),  # Used to represent currency conversions
     )
-    uuid = uuid.uuid1()
+    uuid = models.UUIDField(
+        primary_key=False,
+        default=uuid.uuid4, 
+        editable=False, 
+        verbose_name=_("uuid")
+        )
     name = models.CharField(max_length=50, verbose_name=_("name"))
     parent = TreeForeignKey(
         "self",
@@ -357,7 +363,7 @@ class Transaction(models.Model):
 
     Attributes:
 
-        uuid (SmallUUID): UUID for transaction. Use to prevent leaking of IDs (if desired).
+        uuid (UUIDField): UUID for transaction. Use to prevent leaking of IDs (if desired).
         timestamp (datetime): The datetime when the object was created.
         date (date): The date when the transaction actually occurred, as this may be different to
             :attr:`timestamp`.
@@ -365,7 +371,12 @@ class Transaction(models.Model):
 
     """
 
-    uuid = SmallUUIDField(default=uuid_default(), editable=False, verbose_name=_("uuid"))
+    uuid = models.UUIDField(
+        primary_key=False,
+        default=uuid.uuid4, 
+        editable=False, 
+        verbose_name=_("uuid")
+        )
     timestamp = models.DateTimeField(
         default=timezone.now, help_text="The creation date of this transaction object", verbose_name=_("timestamp")
     )
@@ -416,7 +427,7 @@ class Leg(models.Model):
 
     Attributes:
 
-        uuid (SmallUUID): UUID for transaction leg. Use to prevent leaking of IDs (if desired).
+        uuid (UUIDField): UUID for transaction leg. Use to prevent leaking of IDs (if desired).
         transaction (Transaction): Transaction to which the Leg belongs.
         account (Account): Account the leg is transferring to/from.
         amount (Money): The amount being transferred
@@ -425,7 +436,12 @@ class Leg(models.Model):
 
     """
 
-    uuid = SmallUUIDField(default=uuid_default(), editable=False, verbose_name=_("uuid"))
+    uuid = models.UUIDField(
+        primary_key=False,
+        default=uuid.uuid4, 
+        editable=False, 
+        verbose_name=_("uuid")
+        )
     transaction = models.ForeignKey(Transaction, related_name="legs", on_delete=models.CASCADE, verbose_name=_("transaction"))
     account = models.ForeignKey(Account, related_name="legs", on_delete=models.CASCADE, verbose_name=_("account"))
     amount = MoneyField(
@@ -506,14 +522,19 @@ class StatementImport(models.Model):
 
     Attributes:
 
-        uuid (SmallUUID): UUID for statement import. Use to prevent leaking of IDs (if desired).
+        uuid (UUIDField): UUID for statement import. Use to prevent leaking of IDs (if desired).
         timestamp (datetime): The datetime when the object was created.
         bank_account (Account): The account the import is for (should normally point to an asset
             account which represents your bank account)
 
     """
 
-    uuid = SmallUUIDField(default=uuid_default(), editable=False, verbose_name=_("uuid"))
+    uuid = models.UUIDField(
+        primary_key=False,
+        default=uuid.uuid4, 
+        editable=False, 
+        verbose_name=_("uuid")
+        )
     timestamp = models.DateTimeField(default=timezone.now, verbose_name=_("timestamp"))
     # TODO: Add constraint to ensure destination account expects statements (copy 0007)
     bank_account = models.ForeignKey(Account, related_name="imports", on_delete=models.CASCADE, verbose_name=_("bank account"))
@@ -555,7 +576,7 @@ class StatementLine(models.Model):
 
     Attributes:
 
-        uuid (SmallUUID): UUID for statement line. Use to prevent leaking of IDs (if desired).
+        uuid (UUIDField): UUID for statement line. Use to prevent leaking of IDs (if desired).
         timestamp (datetime): The datetime when the object was created.
         date (date): The date given by the statement line
         statement_import (StatementImport): The import to which the line belongs
@@ -565,7 +586,12 @@ class StatementLine(models.Model):
             occurs during reconciliation. See also :meth:`StatementLine.create_transaction()`.
     """
 
-    uuid = SmallUUIDField(default=uuid_default(), editable=False, verbose_name=_("uuid"))
+    uuid = models.UUIDField(
+        primary_key=False,
+        default=uuid.uuid4, 
+        editable=False, 
+        verbose_name=_("uuid")
+        )
     timestamp = models.DateTimeField(default=timezone.now, verbose_name=_("timestamp"))
     date = models.DateField(verbose_name=_("date"))
     statement_import = models.ForeignKey(
