@@ -20,7 +20,13 @@ class TransactionCsvImport(models.Model):
         ("done", "Import complete"),
     )
 
-    uuid = uuid.uuid1()
+    id = models.BigAutoField(primary_key=True)
+    uuid = models.UUIDField(
+        primary_key=False,
+        default=uuid.uuid4, 
+        editable=False, 
+        verbose_name=_("uuid")
+        )
     timestamp = models.DateTimeField(default=timezone.now, editable=False, verbose_name=_("timestamp"))
     has_headings = models.BooleanField(
         default=True, verbose_name=_("First line of file contains headings")
@@ -104,6 +110,7 @@ class TransactionCsvImportColumn(models.Model):
         ("description", "Description / Notes"),
     )
 
+    id = models.BigAutoField(primary_key=True)
     transaction_import = models.ForeignKey(
         TransactionCsvImport, related_name="columns", on_delete=models.CASCADE, verbose_name=_("transaction import")
     )
