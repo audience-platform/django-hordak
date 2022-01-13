@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Account',
             fields=[
-                ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, verbose_name='uuid')),
+                ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=False, serialize=False, verbose_name='uuid')),
                 ('name', models.CharField(max_length=50, verbose_name='name')),
                 ('code', models.CharField(blank=True, max_length=3, null=True, verbose_name='code')),
                 ('full_code', models.CharField(blank=True, db_index=True, max_length=100, null=True, unique=True, verbose_name='full_code')),
@@ -55,7 +55,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Transaction',
             fields=[
-                ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, verbose_name='uuid')),
+                ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=False, serialize=False, verbose_name='uuid')),
                 ('timestamp', models.DateTimeField(default=django.utils.timezone.now, help_text='The creation date of this transaction object', verbose_name='timestamp')),
                 ('date', models.DateField(default=django.utils.timezone.now, help_text='The date on which this transaction occurred', verbose_name='date')),
                 ('description', models.TextField(blank=True, default='', verbose_name='description')),
@@ -80,7 +80,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StatementLine',
             fields=[
-                ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, verbose_name='uuid')),
+                ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=False, serialize=False, verbose_name='uuid')),
                 ('timestamp', models.DateTimeField(default=django.utils.timezone.now, verbose_name='timestamp')),
                 ('date', models.DateField(verbose_name='date')),
                 ('amount', models.DecimalField(decimal_places=2, max_digits=13, verbose_name='amount')),
@@ -111,7 +111,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TransactionCsvImportColumn',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=False, serialize=False, verbose_name='ID')),
                 ('column_number', models.PositiveSmallIntegerField(verbose_name='column number')),
                 ('column_heading', models.CharField(blank=True, default='', max_length=100, verbose_name='Column')),
                 ('to_field', models.CharField(blank=True, choices=[(None, '-- Do not import --'), ('date', 'Date'), ('amount', 'Amount'), ('amount_out', 'Amount (money out only)'), ('amount_in', 'Amount (money in only)'), ('description', 'Description / Notes')], default=None, max_length=20, null=True, verbose_name='Is')),

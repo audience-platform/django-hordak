@@ -99,7 +99,7 @@ class Account(MPTTModel):
         ("TR", "trading", "Currency Trading"),  # Used to represent currency conversions
     )
     uuid = models.UUIDField(
-        primary_key=True,
+        primary_key=False,
         default=uuid.uuid4, 
         editable=False, 
         verbose_name=_("uuid")
@@ -372,7 +372,7 @@ class Transaction(models.Model):
     """
 
     uuid = models.UUIDField(
-        primary_key=True,
+        primary_key=False,
         default=uuid.uuid4, 
         editable=False, 
         verbose_name=_("uuid")
@@ -437,7 +437,7 @@ class Leg(models.Model):
     """
 
     uuid = models.UUIDField(
-        primary_key=True,
+        primary_key=False,
         default=uuid.uuid4, 
         editable=False, 
         verbose_name=_("uuid")
@@ -530,7 +530,7 @@ class StatementImport(models.Model):
     """
 
     uuid = models.UUIDField(
-        primary_key=True,
+        primary_key=False,
         default=uuid.uuid4, 
         editable=False, 
         verbose_name=_("uuid")
@@ -587,7 +587,7 @@ class StatementLine(models.Model):
     """
 
     uuid = models.UUIDField(
-        primary_key=True,
+        primary_key=False,
         default=uuid.uuid4, 
         editable=False, 
         verbose_name=_("uuid")
