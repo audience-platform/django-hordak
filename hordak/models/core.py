@@ -98,6 +98,7 @@ class Account(MPTTModel):
         ("EQ", "equity", "Equity"),  # Eg. Money from shares
         ("TR", "trading", "Currency Trading"),  # Used to represent currency conversions
     )
+    id = models.BigAutoField(primary_key=True)
     uuid = models.UUIDField(
         primary_key=False,
         default=uuid.uuid4, 
@@ -371,6 +372,7 @@ class Transaction(models.Model):
 
     """
 
+    id = models.BigAutoField(primary_key=True)
     uuid = models.UUIDField(
         primary_key=False,
         default=uuid.uuid4, 
@@ -436,6 +438,7 @@ class Leg(models.Model):
 
     """
 
+    id = models.BigAutoField(primary_key=True)
     uuid = models.UUIDField(
         primary_key=False,
         default=uuid.uuid4, 
@@ -529,6 +532,7 @@ class StatementImport(models.Model):
 
     """
 
+    id = models.BigAutoField(primary_key=True)
     uuid = models.UUIDField(
         primary_key=False,
         default=uuid.uuid4, 
@@ -586,6 +590,7 @@ class StatementLine(models.Model):
             occurs during reconciliation. See also :meth:`StatementLine.create_transaction()`.
     """
 
+    id = models.BigAutoField(primary_key=True)
     uuid = models.UUIDField(
         primary_key=False,
         default=uuid.uuid4, 
