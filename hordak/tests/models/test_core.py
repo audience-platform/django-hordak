@@ -2,7 +2,6 @@ from datetime import date
 from unittest.mock import patch
 from django.db.utils import DatabaseError, IntegrityError
 from django.test.testcases import (
-    TestCase,
     TransactionTestCase as DbTransactionTestCase,
     TransactionTestCase,
 )

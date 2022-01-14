@@ -119,7 +119,7 @@ class Account(MPTTModel):
     full_code = models.CharField(max_length=100, db_index=True, unique=True, null=True, blank=True, verbose_name=_("full_code"))
     # TODO: Implement this child_code_width field, as it is probably a good idea
     # child_code_width = models.PositiveSmallIntegerField(default=1)
-    type = models.CharField(max_length=2, choices=TYPES, blank=True, verbose_name=_("type"))
+    type = models.CharField(max_length=2, choices=TYPES, blank=True, verbose_name=_("type"), null=True)
     is_bank_account = models.BooleanField(
         default=False,
         blank=True,
